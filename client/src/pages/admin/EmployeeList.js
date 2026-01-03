@@ -17,6 +17,8 @@ const EmployeeList = () => {
     department: '',
     position: '',
     phoneNumber: '',
+    isActive: true,
+    resetPassword: false,
   });
 
   const load = async () => {
@@ -44,7 +46,11 @@ const EmployeeList = () => {
     try {
       if (editingId) {
         // Update
-        const { password, ...updateData } = formData;
+        const { password, resetPassword, ...updateData } = formData;
+        // Only include password if reset is checked
+        if (resetPassword && password) {
+          updateData.password = password;
+        }
         await axios.put(`${API_URL}/auth/users/${editingId}`, updateData);
         setMessage({ type: 'success', text: 'Employee updated successfully!' });
       } else {
@@ -66,6 +72,8 @@ const EmployeeList = () => {
         department: '',
         position: '',
         phoneNumber: '',
+        isActive: true,
+        resetPassword: false,
       });
       setEditingId(null);
       setShowForm(false);
@@ -87,6 +95,8 @@ const EmployeeList = () => {
       department: employee.department ? String(employee.department).trim() : '',
       position: employee.position ? String(employee.position).trim() : '',
       phoneNumber: employee.phoneNumber ? String(employee.phoneNumber).trim() : '',
+      isActive: employee.isActive !== undefined ? employee.isActive : true,
+      resetPassword: false,
     };
     console.log('Setting form data:', newFormData);
     setFormData(newFormData);
@@ -119,6 +129,8 @@ const EmployeeList = () => {
       department: '',
       position: '',
       phoneNumber: '',
+      isActive: true,
+      resetPassword: false,
     });
   };
 
@@ -219,6 +231,60 @@ const EmployeeList = () => {
                     required={!editingId}
                     placeholder="Min 8 characters"
                   />
+                </div>
+              )}
+            </div>
+
+            {/* Admin Only Section */}
+            <div style={styles.adminSection}>
+              <h4 style={styles.adminSectionTitle}>Admin Controls</h4>
+              <div style={styles.formRow}>
+                <div style={styles.formGroup}>
+                  <label style={styles.checkboxLabel}>
+                    <input
+                      type="checkbox"
+                      name="isActive"
+                      checked={formData.isActive}
+                      onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
+                      style={styles.checkbox}
+                    />
+                    Active User
+                  </label>
+                  <p style={styles.helpText}>Uncheck to deactivate this user account</p>
+                </div>
+              </div>
+
+              {editingId && (
+                <div style={styles.formRow}>
+                  <div style={styles.formGroup}>
+                    <label style={styles.checkboxLabel}>
+                      <input
+                        type="checkbox"
+                        name="resetPassword"
+                        checked={formData.resetPassword}
+                        onChange={(e) => setFormData({ ...formData, resetPassword: e.target.checked })}
+                        style={styles.checkbox}
+                      />
+                      Reset Password
+                    </label>
+                    <p style={styles.helpText}>Check to set a new password for this user</p>
+                  </div>
+                </div>
+              )}
+
+              {editingId && formData.resetPassword && (
+                <div style={styles.formRow}>
+                  <div style={styles.formGroup}>
+                    <label style={styles.label}>New Password</label>
+                    <input
+                      type="password"
+                      name="password"
+                      value={formData.password}
+                      onChange={handleChange}
+                      style={styles.input}
+                      placeholder="Enter new password (min 8 characters)"
+                    />
+                  </div>
                 </div>
               )}
             </div>
@@ -546,6 +612,43 @@ const styles = {
     color: '#6b7280',
     padding: '32px 16px',
     fontSize: '14px',
+  },
+  adminSection: {
+    background: '#f0f9ff',
+    border: '1px solid #bfdbfe',
+    borderRadius: '8px',
+    padding: '16px',
+    marginTop: '16px',
+  },
+  adminSectionTitle: {
+    margin: '0 0 12px 0',
+    fontSize: '13px',
+    fontWeight: '700',
+    color: '#1e40af',
+    textTransform: 'uppercase',
+    letterSpacing: '0.5px',
+  },
+  checkboxLabel: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+    fontSize: '14px',
+    fontWeight: '500',
+    color: '#1a3a42',
+    cursor: 'pointer',
+    margin: 0,
+  },
+  checkbox: {
+    width: '18px',
+    height: '18px',
+    cursor: 'pointer',
+    accentColor: '#3b6f7f',
+  },
+  helpText: {
+    margin: '4px 0 0 26px',
+    fontSize: '12px',
+    color: '#6b7280',
+    fontStyle: 'italic',
   },
 };
 
