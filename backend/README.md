@@ -98,6 +98,65 @@ GET /api/attendance/me?start=YYYY-MM-DD&end=YYYY-MM-DD
 Authorization: Bearer <token>
 ```
 
+#### Payroll Routes
+
+- Employee: View payroll (latest or by period)
+```
+GET /api/payroll/me
+GET /api/payroll/me?period=YYYY-MM
+Authorization: Bearer <token>
+```
+
+- Admin/HR/Manager: View user's payroll records
+```
+GET /api/payroll/users/:userId
+GET /api/payroll/users/:userId?period=YYYY-MM
+Authorization: Bearer <admin-token>
+```
+
+- Admin: Create or update salary structure for a user
+```
+PUT /api/payroll/users/:userId
+Authorization: Bearer <admin-token>
+Content-Type: application/json
+
+{
+  "payPeriod": "2026-01",
+  "baseSalary": 5000,
+  "allowances": 500,
+  "deductions": 100,
+  "notes": "Monthly salary"
+}
+```
+
+#### Curl examples
+
+- Employee: view latest payroll
+```
+curl "http://localhost:5000/api/payroll/me" \
+  -H "Authorization: Bearer <token>"
+```
+
+- Employee: view payroll for period
+```
+curl "http://localhost:5000/api/payroll/me?period=2026-01" \
+  -H "Authorization: Bearer <token>"
+```
+
+- Admin: create/update salary structure
+```
+curl -X PUT http://localhost:5000/api/payroll/users/<userId> \
+  -H "Authorization: Bearer <admin-token>" \
+  -H "Content-Type: application/json" \
+  -d '{"payPeriod":"2026-01","baseSalary":5000,"allowances":500,"deductions":100}'
+```
+
+- Admin: view user's payroll
+```
+curl "http://localhost:5000/api/payroll/users/<userId>?period=2026-01" \
+  -H "Authorization: Bearer <admin-token>"
+```
+
 - Admin/HR/Manager: Mark leave for a user
 ```
 POST /api/attendance/:userId/leave
