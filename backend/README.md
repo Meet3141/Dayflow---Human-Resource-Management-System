@@ -329,6 +329,21 @@ For development with auto-restart:
 npm run dev
 ```
 
+### Seeding an Admin User ✅
+
+If you need an initial administrator account for testing or setup, run:
+
+```bash
+npm run seed:admin
+```
+
+This will create an admin with the following default credentials (change the password after logging in):
+
+- Email: `admin@dayflow.com`
+- Password: `Admin@123`
+
+You can then log in via `POST /api/auth/login` and use the returned token to access admin routes.
+
 ## Next Steps
 
 You can extend this backend with:

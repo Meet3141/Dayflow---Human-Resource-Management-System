@@ -15,6 +15,7 @@ import EmployeeList from './pages/admin/EmployeeList';
 import AttendanceAdmin from './pages/admin/AttendanceAdmin';
 import LeaveApprovals from './pages/admin/LeaveApprovals';
 import PayrollAdmin from './pages/admin/PayrollAdmin';
+import Unauthorized from './pages/Unauthorized';
 import './App.css';
 
 const AppRoutes = () => {
@@ -70,6 +71,9 @@ const AppRoutes = () => {
       <Route path="/dashboard/admin/attendance" element={<ProtectedRoute allowedRoles={['admin']}><AdminDashboard /><AttendanceAdmin /></ProtectedRoute>} />
       <Route path="/dashboard/admin/leaves" element={<ProtectedRoute allowedRoles={['admin']}><AdminDashboard /><LeaveApprovals /></ProtectedRoute>} />
       <Route path="/dashboard/admin/payroll" element={<ProtectedRoute allowedRoles={['admin']}><AdminDashboard /><PayrollAdmin /></ProtectedRoute>} />
+
+      {/* Unauthorized route */}
+      <Route path="/unauthorized" element={<Unauthorized />} />
 
       {/* Catch All */}
       <Route path="/" element={user ? <Navigate to="/dashboard/employee" /> : <Navigate to="/login" />} />
