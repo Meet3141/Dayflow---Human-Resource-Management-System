@@ -1,0 +1,86 @@
+[{
+  "_id": {
+    "$oid": "6958b0a6cd5705afad8568be"
+  },
+  "employeeId": "EMP90",
+  "name": "Yug Patel",
+  "email": "yug@gmail.com",
+  "password": "$2a$10$rVLsrOrTrzyEWzu1fCZ/K.R3dYQbJfKgqZamyk6jlbjpBCmpI./L6",
+  "role": "employee",
+  "isActive": true,
+  "hireDate": {
+    "$date": "2026-01-03T06:01:10.515Z"
+  },
+  "createdAt": {
+    "$date": "2026-01-03T06:01:10.522Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-03T06:01:10.522Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6958b114cd5705afad8568e2"
+  },
+  "employeeId": "EMP001",
+  "name": "Meet Patel",
+  "email": "meet@gmail.com",
+  "password": "$2a$10$zUXKIdt8ieNw7Dkoip/w6.b0TYBOkI8.E5Q/fwoCUCWiiRF7Egrfe",
+  "role": "hr",
+  "isActive": true,
+  "hireDate": {
+    "$date": "2026-01-03T06:03:00.312Z"
+  },
+  "createdAt": {
+    "$date": "2026-01-03T06:03:00.313Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-03T06:03:00.313Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6958b3b8fe49e31e39e18aa2"
+  },
+  "employeeId": "ADMIN001",
+  "name": "Administrator",
+  "email": "admin@dayflow.com",
+  "password": "$2a$10$hqfnHU.2mxU3uvR.yDnTle/rczzVCHk9anyOshIQf0ZtpbFFPoqRa",
+  "role": "admin",
+  "department": "Administration",
+  "position": "Administrator",
+  "isActive": true,
+  "hireDate": {
+    "$date": "2026-01-03T06:14:16.421Z"
+  },
+  "createdAt": {
+    "$date": "2026-01-03T06:14:16.426Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-03T06:14:16.426Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6958d2d02213ecf5192a4873"
+  },
+  "employeeId": "EMP002",
+  "name": "Ankit Patel",
+  "email": "ankit@gmail.com",
+  "password": "$2a$10$oIoHD3XXI20ciyE89hqhq.jgRhnUGw/OgmNBbnEm7kGV0NMv6q4My",
+  "role": "employee",
+  "isActive": true,
+  "hireDate": {
+    "$date": "2026-01-03T08:26:56.647Z"
+  },
+  "createdAt": {
+    "$date": "2026-01-03T08:26:56.654Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-03T08:26:56.654Z"
+  },
+  "__v": 0
+}]

@@ -1,0 +1,25 @@
+[{
+  "_id": {
+    "$oid": "6958ce6bd73fbd2c0b28fc53"
+  },
+  "user": {
+    "$oid": "6958b0a6cd5705afad8568be"
+  },
+  "payPeriod": "2026-01",
+  "__v": 0,
+  "allowances": 2000,
+  "baseSalary": 35000,
+  "createdAt": {
+    "$date": "2026-01-03T08:08:11.847Z"
+  },
+  "deductions": 0,
+  "effectiveDate": {
+    "$date": "2026-01-03T08:08:11.862Z"
+  },
+  "grossPay": 37000,
+  "netPay": 37000,
+  "notes": "",
+  "updatedAt": {
+    "$date": "2026-01-03T08:08:56.661Z"
+  }
+}]
