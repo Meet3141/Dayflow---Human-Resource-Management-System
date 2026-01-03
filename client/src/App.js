@@ -47,15 +47,17 @@ const AppRoutes = () => {
       <Route
         path="/dashboard/employee"
         element={
-          <ProtectedRoute allowedRoles={['employee']}>
+          <ProtectedRoute allowedRoles={['employee','admin','manager']}>
             <EmployeeDashboard />
           </ProtectedRoute>
         }
-      />
-      <Route path="/dashboard/employee/profile" element={<ProtectedRoute allowedRoles={['employee']}><EmployeeDashboard /><ProfilePage /></ProtectedRoute>} />
-      <Route path="/dashboard/employee/attendance" element={<ProtectedRoute allowedRoles={['employee']}><EmployeeDashboard /><AttendancePage /></ProtectedRoute>} />
-      <Route path="/dashboard/employee/leaves" element={<ProtectedRoute allowedRoles={['employee']}><EmployeeDashboard /><LeavePage /></ProtectedRoute>} />
-      <Route path="/dashboard/employee/payroll" element={<ProtectedRoute allowedRoles={['employee']}><EmployeeDashboard /><PayrollPage /></ProtectedRoute>} />
+      >
+        <Route index element={<div style={{ padding: 20 }}><p>Select a section from the left to view details.</p></div>} />
+        <Route path="profile" element={<ProfilePage />} />
+        <Route path="attendance" element={<AttendancePage />} />
+        <Route path="leaves" element={<LeavePage />} />
+        <Route path="payroll" element={<PayrollPage />} />
+      </Route>
 
       <Route
         path="/dashboard/hr"
@@ -64,21 +66,28 @@ const AppRoutes = () => {
             <HRDashboard />
           </ProtectedRoute>
         }
-      />
+      >
+        <Route index element={<div style={{ padding: 20 }}><p>Select an HR area.</p></div>} />
+        <Route path="employees" element={<EmployeeList />} />
+        <Route path="leaves" element={<LeaveApprovals />} />
+        <Route path="attendance" element={<AttendanceAdmin />} />
+      </Route>
 
       {/* Admin routes */}
       <Route
         path="/dashboard/admin"
         element={
-          <ProtectedRoute allowedRoles={['admin']}>
+          <ProtectedRoute allowedRoles={['admin','manager']}>
             <AdminDashboard />
           </ProtectedRoute>
         }
-      />
-      <Route path="/dashboard/admin/employees" element={<ProtectedRoute allowedRoles={['admin']}><AdminDashboard /><EmployeeList /></ProtectedRoute>} />
-      <Route path="/dashboard/admin/attendance" element={<ProtectedRoute allowedRoles={['admin']}><AdminDashboard /><AttendanceAdmin /></ProtectedRoute>} />
-      <Route path="/dashboard/admin/leaves" element={<ProtectedRoute allowedRoles={['admin']}><AdminDashboard /><LeaveApprovals /></ProtectedRoute>} />
-      <Route path="/dashboard/admin/payroll" element={<ProtectedRoute allowedRoles={['admin']}><AdminDashboard /><PayrollAdmin /></ProtectedRoute>} />
+      >
+        <Route index element={<div style={{ padding: 20 }}><p>Select an admin area.</p></div>} />
+        <Route path="employees" element={<EmployeeList />} />
+        <Route path="attendance" element={<AttendanceAdmin />} />
+        <Route path="leaves" element={<LeaveApprovals />} />
+        <Route path="payroll" element={<PayrollAdmin />} />
+      </Route>
 
       {/* Unauthorized route */}
       <Route path="/unauthorized" element={<Unauthorized />} />

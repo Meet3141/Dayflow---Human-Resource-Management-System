@@ -9,11 +9,19 @@ const AttendanceAdmin = () => {
     e.preventDefault();
     if (!start || !end) return;
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000/api'}/attendance/users?start=${start}&end=${end}`);
+      const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+      const res = await fetch(`${API_URL}/attendance?start=${start}&end=${end}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.message || 'Failed to fetch');
+      }
       const data = await res.json();
       setRecords(data.data || []);
     } catch (err) {
-      // ignore
+      console.error('Attendance fetch error', err);
+      setRecords([]);
     }
   };
 

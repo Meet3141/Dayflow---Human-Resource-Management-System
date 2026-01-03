@@ -8,25 +8,40 @@ const { createNotification } = require('./notificationController');
 // @access  Private
 exports.applyLeave = async (req, res) => {
   try {
-    const { leaveType, startDate, endDate, reason } = req.body;
+    let { leaveType, startDate, endDate, reason } = req.body;
+
+    // Basic presence validation
+    if (!leaveType || !startDate || !endDate || !reason) {
+      return res.status(400).json({ status: 'error', message: 'All fields are required' });
+    }
+
+    // Normalize leaveType to values expected by the model
+    const normalized = leaveType.toString().trim().toLowerCase();
+    if (normalized === 'paid') leaveType = 'annual';
+    else leaveType = normalized;
+
+    const allowedTypes = ['sick', 'casual', 'annual', 'unpaid', 'maternity', 'paternity'];
+    if (!allowedTypes.includes(leaveType)) {
+      return res.status(400).json({ status: 'error', message: 'Invalid leave type' });
+    }
 
     // Validate dates
     const start = new Date(startDate);
     const end = new Date(endDate);
-    
+    if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+      return res.status(400).json({ status: 'error', message: 'Invalid dates provided' });
+    }
+
     if (start > end) {
-      return res.status(400).json({
-        status: 'error',
-        message: 'End date must be after start date',
-      });
+      return res.status(400).json({ status: 'error', message: 'End date must be after start date' });
     }
 
     // Create leave application
     const leave = await Leave.create({
       employee: req.user._id,
       leaveType,
-      startDate,
-      endDate,
+      startDate: start,
+      endDate: end,
       reason,
     });
 
@@ -38,10 +53,10 @@ exports.applyLeave = async (req, res) => {
       data: populatedLeave,
     });
   } catch (error) {
-    res.status(500).json({
-      status: 'error',
-      message: error.message,
-    });
+    if (error.name === 'ValidationError') {
+      return res.status(400).json({ status: 'error', message: error.message });
+    }
+    res.status(500).json({ status: 'error', message: error.message });
   }
 };
 

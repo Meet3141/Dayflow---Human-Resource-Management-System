@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 const AdminDashboard = () => {
@@ -21,10 +21,14 @@ const AdminDashboard = () => {
       <div style={styles.content}>
         <h2>Admin Dashboard</h2>
         <div style={styles.grid}>
-          <Link to="/dashboard/admin/employees" style={styles.cardLink}><div style={styles.gridCard}><h4>👥 Employees</h4><p>View employee list</p></div></Link>
-          <Link to="/dashboard/admin/attendance" style={styles.cardLink}><div style={styles.gridCard}><h4>📊 Attendance</h4><p>View attendance</p></div></Link>
-          <Link to="/dashboard/admin/leaves" style={styles.cardLink}><div style={styles.gridCard}><h4>📋 Leave Approvals</h4><p>Review pending leaves</p></div></Link>
-          <Link to="/dashboard/admin/payroll" style={styles.cardLink}><div style={styles.gridCard}><h4>💰 Payroll</h4><p>Manage salaries</p></div></Link>
+          <Link to="employees" style={styles.cardLink}><div style={styles.gridCard}><h4>👥 Employees</h4><p>View employee list</p></div></Link>
+          <Link to="attendance" style={styles.cardLink}><div style={styles.gridCard}><h4>📊 Attendance</h4><p>View attendance</p></div></Link>
+          <Link to="leaves" style={styles.cardLink}><div style={styles.gridCard}><h4>📋 Leave Approvals</h4><p>Review pending leaves</p></div></Link>
+          <Link to="payroll" style={styles.cardLink}><div style={styles.gridCard}><h4>💰 Payroll</h4><p>Manage salaries</p></div></Link>
+        </div>
+
+        <div style={{ marginTop: 20 }}>
+          <Outlet />
         </div>
       </div>
     </div>

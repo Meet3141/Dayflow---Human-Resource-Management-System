@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, Outlet } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 const HRDashboard = () => {
@@ -16,9 +17,7 @@ const HRDashboard = () => {
           <h1 style={styles.logo}>Dayflow HRMS</h1>
           <div style={styles.userMenu}>
             <span>{user?.name}</span>
-            <button onClick={handleLogout} style={styles.logoutBtn}>
-              Logout
-            </button>
+            <button onClick={handleLogout} style={styles.logoutBtn}>Logout</button>
           </div>
         </div>
       </nav>
@@ -34,22 +33,31 @@ const HRDashboard = () => {
         </div>
 
         <div style={styles.grid}>
-          <div style={styles.gridCard}>
-            <h4>👥 Employee Management</h4>
-            <p>View and manage employee profiles</p>
-          </div>
-          <div style={styles.gridCard}>
-            <h4>📋 Leave Requests</h4>
-            <p>Review and approve leave applications</p>
-          </div>
-          <div style={styles.gridCard}>
-            <h4>💰 Payroll</h4>
-            <p>Process salary and payroll</p>
-          </div>
-          <div style={styles.gridCard}>
-            <h4>📊 Attendance</h4>
-            <p>Monitor employee attendance</p>
-          </div>
+          <Link to="employees" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <div style={styles.gridCard}>
+              <h4>👥 Employee Management</h4>
+              <p>View and manage employee profiles</p>
+            </div>
+          </Link>
+
+          <Link to="leaves" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <div style={styles.gridCard}>
+              <h4>📋 Leave Requests</h4>
+              <p>Review and approve leave applications</p>
+            </div>
+          </Link>
+
+          <Link to="attendance" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <div style={styles.gridCard}>
+              <h4>📊 Attendance</h4>
+              <p>Monitor employee attendance</p>
+            </div>
+          </Link>
+        </div>
+
+        {/* Outlet for HR subpages */}
+        <div style={{ marginTop: 20 }}>
+          <Outlet />
         </div>
       </div>
     </div>

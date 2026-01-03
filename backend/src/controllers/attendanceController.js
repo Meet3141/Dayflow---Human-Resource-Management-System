@@ -189,3 +189,28 @@ exports.getUserAttendance = async (req, res) => {
     res.status(500).json({ status: 'error', message: error.message });
   }
 };
+
+// @desc Get all attendance within a date range (admin/hr/manager)
+// @route GET /api/attendance?start=YYYY-MM-DD&end=YYYY-MM-DD
+// @access Private/Admin/HR/Manager
+exports.getAllAttendance = async (req, res) => {
+  try {
+    const { start, end } = req.query;
+    if (!start || !end) {
+      return res.status(400).json({ status: 'error', message: 'start and end dates are required' });
+    }
+
+    const startDay = startOfDay(new Date(start));
+    const endDay = startOfDay(new Date(end));
+
+    const records = await Attendance.find({
+      date: { $gte: startDay, $lte: endDay },
+    })
+      .sort({ date: 1 })
+      .populate('user', 'employeeId name email role');
+
+    res.json({ status: 'success', data: records });
+  } catch (error) {
+    res.status(500).json({ status: 'error', message: error.message });
+  }
+};

@@ -78,9 +78,12 @@ const LeavePage = () => {
       <form onSubmit={handleApply} style={{ display: 'grid', gap: 8, maxWidth: 400 }}>
         <label>Type</label>
         <select name="leaveType" value={form.leaveType} onChange={handleChange}>
-          <option>Sick</option>
-          <option>Casual</option>
-          <option>Paid</option>
+          <option value="sick">Sick</option>
+          <option value="casual">Casual</option>
+          <option value="annual">Paid (Annual)</option>
+          <option value="unpaid">Unpaid</option>
+          <option value="maternity">Maternity</option>
+          <option value="paternity">Paternity</option>
         </select>
         <label>Start</label>
         <input type="date" name="startDate" value={form.startDate} onChange={handleChange} />

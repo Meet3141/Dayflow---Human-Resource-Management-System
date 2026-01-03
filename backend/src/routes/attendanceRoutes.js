@@ -18,4 +18,7 @@ router.get('/me', protect, getMyAttendance);
 router.post('/:userId/leave', protect, authorize('admin', 'hr', 'manager'), markLeave);
 router.get('/users/:userId', protect, authorize('admin', 'hr', 'manager'), getUserAttendance);
 
+// Admin/HR/Manager: get all attendance in a date range
+router.get('/', protect, authorize('admin', 'hr', 'manager'), require('../controllers/attendanceController').getAllAttendance);
+
 module.exports = router;
