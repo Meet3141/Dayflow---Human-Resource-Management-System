@@ -19,7 +19,7 @@ const attendanceSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ['Present', 'Absent', 'Half-day', 'Leave'],
+      enum: ['Present', 'Absent', 'Half-day', 'Leave', 'Holiday'],
       default: 'Absent',
     },
     durationHours: {
@@ -29,6 +29,10 @@ const attendanceSchema = new mongoose.Schema(
     notes: {
       type: String,
       trim: true,
+    },
+    leaveReference: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Leave',
     },
   },
   {
