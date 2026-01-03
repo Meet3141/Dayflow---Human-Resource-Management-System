@@ -1,6 +1,7 @@
 const Leave = require('../models/Leave');
 const Attendance = require('../models/Attendance');
 const User = require('../models/User');
+const { createNotification } = require('./notificationController');
 
 // @desc    Apply for leave (Employee)
 // @route   POST /api/leaves
@@ -183,6 +184,36 @@ exports.reviewLeave = async (req, res) => {
     // If approved, update attendance
     if (status === 'Approved') {
       await updateAttendanceForLeave(leave);
+
+      // Create notification for approved leave
+      await createNotification(
+        leave.employee._id,
+        'Leave Approved',
+        `Your ${leave.leaveType} leave from ${new Date(leave.startDate).toDateString()} to ${new Date(leave.endDate).toDateString()} has been approved.`,
+        'leave_approval',
+        leave._id,
+        'Leave',
+        {
+          leaveType: leave.leaveType,
+          startDate: leave.startDate,
+          endDate: leave.endDate,
+          numberOfDays: leave.numberOfDays,
+        }
+      );
+    } else if (status === 'Rejected') {
+      // Create notification for rejected leave
+      await createNotification(
+        leave.employee._id,
+        'Leave Rejected',
+        `Your ${leave.leaveType} leave request has been rejected. Reason: ${comments || 'No reason provided'}`,
+        'leave_rejection',
+        leave._id,
+        'Leave',
+        {
+          leaveType: leave.leaveType,
+          rejectionReason: comments,
+        }
+      );
     }
 
     const updatedLeave = await Leave.findById(leave._id)

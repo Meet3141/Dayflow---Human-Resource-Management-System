@@ -22,6 +22,7 @@ app.use('/api/auth', require('./src/routes/authRoutes'));
 app.use('/api/leaves', require('./src/routes/leaveRoutes'));
 app.use('/api/attendance', require('./src/routes/attendanceRoutes'));
 app.use('/api/payroll', require('./src/routes/payrollRoutes'));
+app.use('/api/notifications', require('./src/routes/notificationRoutes'));
 
 // Health check route
 app.get('/api/health', (req, res) => {
