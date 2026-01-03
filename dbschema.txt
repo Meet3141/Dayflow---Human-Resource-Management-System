@@ -1,0 +1,343 @@
+// Attendance-schema
+{
+  "$jsonSchema": {
+    "bsonType": "object",
+    "required": [
+      "_id",
+      "__v",
+      "createdAt",
+      "date",
+      "durationHours",
+      "status",
+      "updatedAt",
+      "user"
+    ],
+    "properties": {
+      "_id": {
+        "bsonType": "objectId"
+      },
+      "__v": {
+        "bsonType": "int"
+      },
+      "checkIn": {
+        "bsonType": "date"
+      },
+      "checkOut": {
+        "bsonType": "date"
+      },
+      "createdAt": {
+        "bsonType": "date"
+      },
+      "date": {
+        "bsonType": "date"
+      },
+      "durationHours": {
+        "bsonType": [
+          "int",
+          "double"
+        ]
+      },
+      "leaveReference": {
+        "bsonType": "objectId"
+      },
+      "notes": {
+        "bsonType": "string"
+      },
+      "status": {
+        "bsonType": "string"
+      },
+      "updatedAt": {
+        "bsonType": "date"
+      },
+      "user": {
+        "bsonType": "objectId"
+      }
+    }
+  }
+}
+
+
+leaves schema
+
+{
+  "$jsonSchema": {
+    "bsonType": "object",
+    "required": [
+      "_id",
+      "__v",
+      "comments",
+      "createdAt",
+      "employee",
+      "endDate",
+      "leaveType",
+      "numberOfDays",
+      "reason",
+      "reviewedAt",
+      "reviewedBy",
+      "startDate",
+      "status",
+      "updatedAt"
+    ],
+    "properties": {
+      "_id": {
+        "bsonType": "objectId"
+      },
+      "__v": {
+        "bsonType": "int"
+      },
+      "comments": {
+        "bsonType": "string"
+      },
+      "createdAt": {
+        "bsonType": "date"
+      },
+      "employee": {
+        "bsonType": "objectId"
+      },
+      "endDate": {
+        "bsonType": "date"
+      },
+      "leaveType": {
+        "bsonType": "string"
+      },
+      "numberOfDays": {
+        "bsonType": "int"
+      },
+      "reason": {
+        "bsonType": "string"
+      },
+      "reviewedAt": {
+        "bsonType": "date"
+      },
+      "reviewedBy": {
+        "bsonType": "objectId"
+      },
+      "startDate": {
+        "bsonType": "date"
+      },
+      "status": {
+        "bsonType": "string"
+      },
+      "updatedAt": {
+        "bsonType": "date"
+      }
+    }
+  }
+}
+
+notifications-schema
+
+{
+  "$jsonSchema": {
+    "bsonType": "object",
+    "required": [
+      "_id",
+      "__v",
+      "createdAt",
+      "data",
+      "isRead",
+      "message",
+      "recipient",
+      "reference",
+      "referenceModel",
+      "title",
+      "type",
+      "updatedAt"
+    ],
+    "properties": {
+      "_id": {
+        "bsonType": "objectId"
+      },
+      "__v": {
+        "bsonType": "int"
+      },
+      "createdAt": {
+        "bsonType": "date"
+      },
+      "data": {
+        "bsonType": "object",
+        "properties": {
+          "endDate": {
+            "bsonType": "date"
+          },
+          "leaveType": {
+            "bsonType": "string"
+          },
+          "numberOfDays": {
+            "bsonType": "int"
+          },
+          "rejectionReason": {
+            "bsonType": "string"
+          },
+          "startDate": {
+            "bsonType": "date"
+          }
+        },
+        "required": [
+          "leaveType"
+        ]
+      },
+      "isRead": {
+        "bsonType": "bool"
+      },
+      "message": {
+        "bsonType": "string"
+      },
+      "recipient": {
+        "bsonType": "objectId"
+      },
+      "reference": {
+        "bsonType": "objectId"
+      },
+      "referenceModel": {
+        "bsonType": "string"
+      },
+      "title": {
+        "bsonType": "string"
+      },
+      "type": {
+        "bsonType": "string"
+      },
+      "updatedAt": {
+        "bsonType": "date"
+      }
+    }
+  }
+}
+
+payrolls
+
+{
+  "$jsonSchema": {
+    "bsonType": "object",
+    "required": [
+      "_id",
+      "__v",
+      "allowances",
+      "baseSalary",
+      "createdAt",
+      "deductions",
+      "effectiveDate",
+      "grossPay",
+      "netPay",
+      "notes",
+      "payPeriod",
+      "updatedAt",
+      "user"
+    ],
+    "properties": {
+      "_id": {
+        "bsonType": "objectId"
+      },
+      "__v": {
+        "bsonType": "int"
+      },
+      "allowances": {
+        "bsonType": "int"
+      },
+      "baseSalary": {
+        "bsonType": "int"
+      },
+      "createdAt": {
+        "bsonType": "date"
+      },
+      "deductions": {
+        "bsonType": "int"
+      },
+      "effectiveDate": {
+        "bsonType": "date"
+      },
+      "grossPay": {
+        "bsonType": "int"
+      },
+      "netPay": {
+        "bsonType": "int"
+      },
+      "notes": {
+        "bsonType": "string"
+      },
+      "payPeriod": {
+        "bsonType": "string"
+      },
+      "updatedAt": {
+        "bsonType": "date"
+      },
+      "user": {
+        "bsonType": "objectId"
+      }
+    }
+  }
+}
+
+
+users
+
+{
+  "$jsonSchema": {
+    "bsonType": "object",
+    "required": [
+      "_id",
+      "__v",
+      "createdAt",
+      "department",
+      "email",
+      "employeeId",
+      "hireDate",
+      "isActive",
+      "name",
+      "password",
+      "position",
+      "role",
+      "updatedAt"
+    ],
+    "properties": {
+      "_id": {
+        "bsonType": "objectId"
+      },
+      "__v": {
+        "bsonType": "int"
+      },
+      "createdAt": {
+        "bsonType": "date"
+      },
+      "department": {
+        "bsonType": "string"
+      },
+      "email": {
+        "bsonType": "string"
+      },
+      "employeeId": {
+        "bsonType": "string"
+      },
+      "hireDate": {
+        "bsonType": "date"
+      },
+      "isActive": {
+        "bsonType": "bool"
+      },
+      "name": {
+        "bsonType": "string"
+      },
+      "password": {
+        "bsonType": "string"
+      },
+      "phoneNumber": {
+        "bsonType": "string"
+      },
+      "position": {
+        "bsonType": "string"
+      },
+      "role": {
+        "bsonType": "string"
+      },
+      "updatedAt": {
+        "bsonType": "date"
+      }
+    }
+  }
+}
+
+
+
+
+
