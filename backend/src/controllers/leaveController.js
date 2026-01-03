@@ -36,12 +36,16 @@ exports.applyLeave = async (req, res) => {
       return res.status(400).json({ status: 'error', message: 'End date must be after start date' });
     }
 
+    // Calculate number of days (inclusive)
+    const numberOfDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1;
+
     // Create leave application
     const leave = await Leave.create({
       employee: req.user._id,
       leaveType,
       startDate: start,
       endDate: end,
+      numberOfDays,
       reason,
     });
 
@@ -292,6 +296,11 @@ exports.updateLeave = async (req, res) => {
         message: 'End date must be after start date',
       });
     }
+
+    // Recalculate number of days if dates changed
+    const start = new Date(leave.startDate);
+    const end = new Date(leave.endDate);
+    leave.numberOfDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1;
 
     await leave.save();
 

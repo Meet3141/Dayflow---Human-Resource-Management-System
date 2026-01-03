@@ -3,7 +3,7 @@ import { leaveAPI } from '../../services/leaveService';
 
 const LeavePage = () => {
   const [leaves, setLeaves] = useState([]);
-  const [form, setForm] = useState({ leaveType: 'Sick', startDate: '', endDate: '', reason: '' });
+  const [form, setForm] = useState({ leaveType: 'sick', startDate: '', endDate: '', reason: '' });
   const [message, setMessage] = useState(null);
 
   const load = async () => {
@@ -22,10 +22,25 @@ const LeavePage = () => {
   const handleApply = async (e) => {
     e.preventDefault();
     setMessage(null);
+
+    // Validation
+    if (!form.leaveType || !form.startDate || !form.endDate || !form.reason) {
+      setMessage({ type: 'error', text: 'All fields are required' });
+      return;
+    }
+
+    const start = new Date(form.startDate);
+    const end = new Date(form.endDate);
+    
+    if (start > end) {
+      setMessage({ type: 'error', text: 'End date must be after start date' });
+      return;
+    }
+
     try {
       await leaveAPI.applyLeave(form);
       setMessage({ type: 'success', text: 'Leave applied' });
-      setForm({ leaveType: 'Sick', startDate: '', endDate: '', reason: '' });
+      setForm({ leaveType: 'sick', startDate: '', endDate: '', reason: '' });
       load();
     } catch (err) {
       setMessage({ type: 'error', text: err.message || 'Apply failed' });
@@ -44,7 +59,7 @@ const LeavePage = () => {
   };
 
   const [editingId, setEditingId] = useState(null);
-  const [editForm, setEditForm] = useState({ leaveType: 'Sick', startDate: '', endDate: '', reason: '' });
+  const [editForm, setEditForm] = useState({ leaveType: 'sick', startDate: '', endDate: '', reason: '' });
 
   const startEdit = (l) => {
     setEditingId(l._id);
