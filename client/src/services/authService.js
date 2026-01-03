@@ -68,6 +68,20 @@ export const authAPI = {
       throw error.response?.data || error;
     }
   },
+
+  updateProfile: async (payload) => {
+    try {
+      const response = await axios.put(`${API_URL}/auth/me`, payload);
+      if (response.data.data && response.data.data.token) {
+        // update stored user/token
+        localStorage.setItem('token', response.data.data.token);
+        localStorage.setItem('user', JSON.stringify(response.data.data));
+      }
+      return response.data.data;
+    } catch (error) {
+      throw error.response?.data || error;
+    }
+  },
 };
 
 // Configure axios to automatically add token to headers

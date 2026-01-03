@@ -160,6 +160,18 @@ exports.updateProfile = async (req, res) => {
   }
 };
 
+// @desc    Get all users (admin/hr/manager)
+// @route   GET /api/auth/users
+// @access  Private/Admin/HR/Manager
+exports.getUsers = async (req, res) => {
+  try {
+    const users = await User.find().select('-password');
+    res.json({ status: 'success', count: users.length, data: users });
+  } catch (error) {
+    res.status(500).json({ status: 'error', message: error.message });
+  }
+};
+
 // @desc    Get user by ID (admin)
 // @route   GET /api/auth/users/:id
 // @access  Private/Admin

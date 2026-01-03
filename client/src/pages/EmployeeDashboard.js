@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 const EmployeeDashboard = () => {
@@ -25,13 +26,30 @@ const EmployeeDashboard = () => {
 
       <div style={styles.content}>
         <h2>Welcome, {user?.name}!</h2>
-        <div style={styles.card}>
-          <h3>Employee Information</h3>
-          <p><strong>Employee ID:</strong> {user?.employeeId}</p>
-          <p><strong>Email:</strong> {user?.email}</p>
-          <p><strong>Role:</strong> {user?.role}</p>
-          <p><strong>Department:</strong> {user?.department || 'N/A'}</p>
-          <p><strong>Position:</strong> {user?.position || 'N/A'}</p>
+
+        <div style={{ display: 'flex', gap: 20 }}>
+          <aside style={{ width: 220 }}>
+            <div style={{ background:'#fff', padding: 12, borderRadius:8 }}>
+              <h4>Navigation</h4>
+              <ul style={{ listStyle: 'none', padding: 0 }}>
+                <li><Link to="/dashboard/employee/profile">Profile</Link></li>
+                <li><Link to="/dashboard/employee/attendance">Attendance</Link></li>
+                <li><Link to="/dashboard/employee/leaves">Leaves</Link></li>
+                <li><Link to="/dashboard/employee/payroll">Payroll</Link></li>
+              </ul>
+            </div>
+          </aside>
+
+          <main style={{ flex: 1 }}>
+            <div style={styles.card}>
+              <h3>Employee Information</h3>
+              <p><strong>Employee ID:</strong> {user?.employeeId}</p>
+              <p><strong>Email:</strong> {user?.email}</p>
+              <p><strong>Role:</strong> {user?.role}</p>
+              <p><strong>Department:</strong> {user?.department || 'N/A'}</p>
+              <p><strong>Position:</strong> {user?.position || 'N/A'}</p>
+            </div>
+          </main>
         </div>
       </div>
     </div>

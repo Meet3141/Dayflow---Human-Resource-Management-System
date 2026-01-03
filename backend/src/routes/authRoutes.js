@@ -5,6 +5,7 @@ const {
   login,
   getMe,
   updateProfile,
+  getUsers,
   getUserById,
   updateUserById,
 } = require('../controllers/authController');
@@ -17,6 +18,9 @@ router.post('/login', login);
 // Protected routes
 router.get('/me', protect, getMe);
 router.put('/me', protect, updateProfile);
+
+// Admin/HR/Manager: list users
+router.get('/users', protect, authorize('admin', 'hr', 'manager'), getUsers);
 
 // HR routes - full profile access
 router.get('/users/:id', protect, authorize('hr'), getUserById);
