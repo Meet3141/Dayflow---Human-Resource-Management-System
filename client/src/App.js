@@ -14,6 +14,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import EmployeeList from './pages/admin/EmployeeList';
 import AttendanceAdmin from './pages/admin/AttendanceAdmin';
 import LeaveApprovals from './pages/admin/LeaveApprovals';
+import PayrollAdmin from './pages/admin/PayrollAdmin';
 import './App.css';
 
 const AppRoutes = () => {
@@ -68,6 +69,7 @@ const AppRoutes = () => {
       <Route path="/dashboard/admin/employees" element={<ProtectedRoute allowedRoles={['admin']}><AdminDashboard /><EmployeeList /></ProtectedRoute>} />
       <Route path="/dashboard/admin/attendance" element={<ProtectedRoute allowedRoles={['admin']}><AdminDashboard /><AttendanceAdmin /></ProtectedRoute>} />
       <Route path="/dashboard/admin/leaves" element={<ProtectedRoute allowedRoles={['admin']}><AdminDashboard /><LeaveApprovals /></ProtectedRoute>} />
+      <Route path="/dashboard/admin/payroll" element={<ProtectedRoute allowedRoles={['admin']}><AdminDashboard /><PayrollAdmin /></ProtectedRoute>} />
 
       {/* Catch All */}
       <Route path="/" element={user ? <Navigate to="/dashboard/employee" /> : <Navigate to="/login" />} />

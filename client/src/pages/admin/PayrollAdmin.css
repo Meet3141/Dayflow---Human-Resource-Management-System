@@ -1,0 +1,411 @@
+.payroll-admin-container {
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.payroll-admin-grid {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 20px;
+}
+
+/* Panels */
+.employee-panel,
+.payroll-panel {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.panel-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 16px;
+  border-bottom: 1px solid #ddd;
+}
+
+.panel-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* Employee List */
+.employee-list {
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.employee-item {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e0e0e0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.employee-item:hover {
+  background: #f5f5f5;
+}
+
+.employee-item.active {
+  background: #f0f4ff;
+  border-left: 4px solid #667eea;
+  padding-left: 12px;
+}
+
+.employee-item .emp-name {
+  margin: 0 0 4px 0;
+  color: #333;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.employee-item .emp-id {
+  margin: 0;
+  color: #999;
+  font-size: 12px;
+}
+
+/* Payroll Panel */
+.payroll-panel {
+  padding: 20px;
+}
+
+.no-selection,
+.no-records {
+  padding: 40px 20px;
+  text-align: center;
+  color: #999;
+}
+
+.no-selection p,
+.no-records p {
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+/* Form */
+.payroll-form {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 6px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* Calculated Values */
+.calculated-values {
+  background: white;
+  padding: 16px;
+  border-radius: 4px;
+  margin: 16px 0;
+  border-left: 4px solid #667eea;
+}
+
+.calc-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  font-size: 14px;
+}
+
+.calc-row .value {
+  font-weight: 700;
+  color: #333;
+}
+
+.calc-row.highlight {
+  background: #f0f4ff;
+  padding: 8px 12px;
+  margin: 8px -12px -8px -12px;
+  border-radius: 4px;
+}
+
+.calc-row.highlight .value {
+  color: #27ae60;
+  font-size: 16px;
+}
+
+/* Buttons */
+.form-actions,
+.action-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-save {
+  background: #27ae60;
+  color: white;
+}
+
+.btn-save:hover {
+  background: #229954;
+  box-shadow: 0 2px 8px rgba(39, 174, 96, 0.3);
+}
+
+.btn-cancel {
+  background: #ecf0f1;
+  color: #333;
+}
+
+.btn-cancel:hover {
+  background: #d5dbdb;
+}
+
+.btn-primary {
+  background: #667eea;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #5568d3;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.btn-secondary {
+  background: #e8eef7;
+  color: #667eea;
+  width: 100%;
+  margin-top: 16px;
+}
+
+.btn-secondary:hover {
+  background: #dae1f0;
+}
+
+/* Payroll Records */
+.payroll-records {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.record-item {
+  padding: 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.record-item:hover {
+  border-color: #667eea;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.15);
+}
+
+.record-item.active {
+  background: #f0f4ff;
+  border-color: #667eea;
+}
+
+.record-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.record-item .period {
+  font-weight: 600;
+  color: #333;
+}
+
+.record-item .net-pay {
+  color: #27ae60;
+  font-weight: 700;
+}
+
+.record-item .record-date {
+  font-size: 12px;
+  color: #999;
+  margin: 0;
+}
+
+/* Record Details */
+.record-details {
+  background: white;
+  padding: 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  margin-top: 20px;
+}
+
+.record-details h4 {
+  margin: 0 0 16px 0;
+  color: #333;
+  font-size: 16px;
+}
+
+.detail-section {
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.detail-section:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.detail-section h5 {
+  margin: 0 0 12px 0;
+  color: #555;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.detail-row.total {
+  background: white;
+  padding: 8px 12px;
+  margin: 8px -12px;
+  border-radius: 4px;
+  border-left: 4px solid #667eea;
+  font-weight: 600;
+  color: #333;
+}
+
+.detail-row.total.highlight {
+  border-left-color: #27ae60;
+}
+
+.detail-row.total.highlight {
+  color: #27ae60;
+  font-size: 16px;
+}
+
+.notes {
+  background: #f9f9f9;
+  padding: 12px;
+  border-radius: 4px;
+  color: #666;
+  font-style: italic;
+  margin: 0;
+}
+
+/* Alert Messages */
+.alert {
+  padding: 12px 16px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  animation: fadeIn 0.3s ease;
+}
+
+.alert-success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .payroll-admin-grid {
+    grid-template-columns: 250px 1fr;
+  }
+
+  .payroll-records {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .payroll-admin-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .payroll-admin-container {
+    padding: 12px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .payroll-records {
+    grid-template-columns: 1fr;
+  }
+
+  .employee-list {
+    max-height: 300px;
+  }
+}

@@ -24,6 +24,7 @@ const AdminDashboard = () => {
           <Link to="/dashboard/admin/employees" style={styles.cardLink}><div style={styles.gridCard}><h4>👥 Employees</h4><p>View employee list</p></div></Link>
           <Link to="/dashboard/admin/attendance" style={styles.cardLink}><div style={styles.gridCard}><h4>📊 Attendance</h4><p>View attendance</p></div></Link>
           <Link to="/dashboard/admin/leaves" style={styles.cardLink}><div style={styles.gridCard}><h4>📋 Leave Approvals</h4><p>Review pending leaves</p></div></Link>
+          <Link to="/dashboard/admin/payroll" style={styles.cardLink}><div style={styles.gridCard}><h4>💰 Payroll</h4><p>Manage salaries</p></div></Link>
         </div>
       </div>
     </div>
