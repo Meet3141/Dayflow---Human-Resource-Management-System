@@ -116,7 +116,7 @@ const AttendancePage = () => {
           <h3 style={{ margin: '0 0 4px 0' }}>Today's Attendance</h3>
           {user && (
             <p style={{ margin: 0, fontSize: '14px', color: '#666' }}>
-              Employee: <strong>{user.firstName} {user.lastName}</strong>
+              Employee: <strong>{`${user.firstName || ''} ${user.lastName || ''}`.trim() || user.email}</strong>
             </p>
           )}
         </div>

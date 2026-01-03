@@ -10,8 +10,7 @@ const EmployeeList = () => {
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    name: '',
     email: '',
     password: '',
     role: 'employee',
@@ -60,8 +59,7 @@ const EmployeeList = () => {
       }
       
       setFormData({
-        firstName: '',
-        lastName: '',
+        name: '',
         email: '',
         password: '',
         role: 'employee',
@@ -80,16 +78,18 @@ const EmployeeList = () => {
   };
 
   const handleEdit = (employee) => {
-    setFormData({
-      firstName: employee.firstName || '',
-      lastName: employee.lastName || '',
-      email: employee.email || '',
+    console.log('Editing employee:', employee);
+    const newFormData = {
+      name: employee.name ? String(employee.name).trim() : '',
+      email: employee.email ? String(employee.email).trim() : '',
       password: '',
-      role: employee.role || 'employee',
-      department: employee.department || '',
-      position: employee.position || '',
-      phoneNumber: employee.phoneNumber || '',
-    });
+      role: employee.role ? String(employee.role).trim() : 'employee',
+      department: employee.department ? String(employee.department).trim() : '',
+      position: employee.position ? String(employee.position).trim() : '',
+      phoneNumber: employee.phoneNumber ? String(employee.phoneNumber).trim() : '',
+    };
+    console.log('Setting form data:', newFormData);
+    setFormData(newFormData);
     setEditingId(employee._id);
     setShowForm(true);
   };
@@ -112,8 +112,7 @@ const EmployeeList = () => {
     setShowForm(false);
     setEditingId(null);
     setFormData({
-      firstName: '',
-      lastName: '',
+      name: '',
       email: '',
       password: '',
       role: 'employee',
@@ -151,30 +150,17 @@ const EmployeeList = () => {
           <form onSubmit={handleCreate} style={styles.form}>
             <div style={styles.formRow}>
               <div style={styles.formGroup}>
-                <label style={styles.label}>First Name</label>
+                <label style={styles.label}>Full Name</label>
                 <input
                   type="text"
-                  name="firstName"
-                  value={formData.firstName}
+                  name="name"
+                  value={formData.name}
                   onChange={handleChange}
                   style={styles.input}
                   required
+                  placeholder="e.g., John Doe"
                 />
               </div>
-              <div style={styles.formGroup}>
-                <label style={styles.label}>Last Name</label>
-                <input
-                  type="text"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  style={styles.input}
-                  required
-                />
-              </div>
-            </div>
-
-            <div style={styles.formRow}>
               <div style={styles.formGroup}>
                 <label style={styles.label}>Email</label>
                 <input
@@ -184,16 +170,6 @@ const EmployeeList = () => {
                   onChange={handleChange}
                   style={styles.input}
                   required
-                />
-              </div>
-              <div style={styles.formGroup}>
-                <label style={styles.label}>Phone Number</label>
-                <input
-                  type="tel"
-                  name="phoneNumber"
-                  value={formData.phoneNumber}
-                  onChange={handleChange}
-                  style={styles.input}
                 />
               </div>
             </div>
@@ -282,9 +258,7 @@ const EmployeeList = () => {
                   <tr key={e._id} style={styles.tableRow}>
                     <td style={styles.tableCell}>
                       <span style={styles.employeeName}>
-                        {((e.firstName || '').trim() && (e.lastName || '').trim()) 
-                          ? `${e.firstName.trim()} ${e.lastName.trim()}` 
-                          : (e.email || 'N/A')}
+                        {e.name || e.email}
                       </span>
                     </td>
                     <td style={styles.tableCell}>{e.email}</td>

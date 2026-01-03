@@ -3,7 +3,7 @@ import { authAPI } from '../../services/authService';
 
 const ProfilePage = () => {
   const [profile, setProfile] = useState(null);
-  const [form, setForm] = useState({ firstName: '', lastName: '', phoneNumber: '', dateOfBirth: '', password: '' });
+  const [form, setForm] = useState({ name: '', phoneNumber: '', dateOfBirth: '', password: '' });
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -14,8 +14,7 @@ const ProfilePage = () => {
         const data = await authAPI.getMe();
         setProfile(data);
         setForm({
-          firstName: data.firstName || '',
-          lastName: data.lastName || '',
+          name: data.name || '',
           phoneNumber: data.phoneNumber || '',
           dateOfBirth: data.dateOfBirth ? new Date(data.dateOfBirth).toISOString().slice(0, 10) : '',
           password: '',
@@ -48,8 +47,7 @@ const ProfilePage = () => {
   const handleCancel = () => {
     setIsEditing(false);
     setForm({
-      firstName: profile.firstName || '',
-      lastName: profile.lastName || '',
+      name: profile.name || '',
       phoneNumber: profile.phoneNumber || '',
       dateOfBirth: profile.dateOfBirth ? new Date(profile.dateOfBirth).toISOString().slice(0, 10) : '',
       password: '',
@@ -147,29 +145,16 @@ const ProfilePage = () => {
           </h3>
           
           <form onSubmit={handleSubmit} style={styles.form}>
-            <div style={styles.formRow}>
-              <div style={styles.formGroup}>
-                <label style={styles.label}>First Name</label>
-                <input
-                  name="firstName"
-                  value={form.firstName}
-                  onChange={handleChange}
-                  disabled={!isEditing}
-                  style={isEditing ? styles.input : styles.inputDisabled}
-                  placeholder="Enter first name"
-                />
-              </div>
-              <div style={styles.formGroup}>
-                <label style={styles.label}>Last Name</label>
-                <input
-                  name="lastName"
-                  value={form.lastName}
-                  onChange={handleChange}
-                  disabled={!isEditing}
-                  style={isEditing ? styles.input : styles.inputDisabled}
-                  placeholder="Enter last name"
-                />
-              </div>
+            <div style={styles.formGroup}>
+              <label style={styles.label}>Full Name</label>
+              <input
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+                disabled={!isEditing}
+                style={isEditing ? styles.input : styles.inputDisabled}
+                placeholder="Enter full name"
+              />
             </div>
 
             <div style={styles.formGroup}>
