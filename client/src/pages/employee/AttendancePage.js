@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { attendanceAPI } from '../../services/attendanceService';
+import { useAuth } from '../../contexts/AuthContext';
 import './AttendancePage.css';
 
 const AttendancePage = () => {
+  const { user } = useAuth();
   const [todayRecord, setTodayRecord] = useState(null);
   const [attendanceList, setAttendanceList] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -110,7 +112,14 @@ const AttendancePage = () => {
 
       {/* Check-in/Check-out Section */}
       <div className="attendance-card">
-        <h3>Today's Attendance</h3>
+        <div style={{ marginBottom: '16px' }}>
+          <h3 style={{ margin: '0 0 4px 0' }}>Today's Attendance</h3>
+          {user && (
+            <p style={{ margin: 0, fontSize: '14px', color: '#666' }}>
+              Employee: <strong>{user.firstName} {user.lastName}</strong>
+            </p>
+          )}
+        </div>
         <div className="checkin-section">
           <div className="info-message" style={{ 
             background: '#e3f2fd', 

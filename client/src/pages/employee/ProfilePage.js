@@ -236,7 +236,7 @@ const styles = {
     maxWidth: '1200px',
     margin: '0 auto',
     padding: '32px 24px',
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    background: 'linear-gradient(135deg, #1a3a42 0%, #3b6f7f 100%)',
     minHeight: '100vh',
   },
   loadingContainer: {
@@ -272,13 +272,13 @@ const styles = {
     margin: '0 0 8px 0',
   },
   subtitle: {
-    color: 'rgba(255, 255, 255, 0.9)',
+    color: '#e8ecf0',
     fontSize: '16px',
     margin: 0,
   },
   editButton: {
-    background: '#fff',
-    color: '#667eea',
+    background: '#3b6f7f',
+    color: '#fff',
     border: 'none',
     borderRadius: '8px',
     padding: '12px 24px',
@@ -286,7 +286,7 @@ const styles = {
     fontWeight: '600',
     cursor: 'pointer',
     transition: 'all 0.2s',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+    boxShadow: '0 2px 8px rgba(59, 111, 127, 0.2)',
   },
   errorAlert: {
     background: '#fee2e2',
@@ -320,7 +320,7 @@ const styles = {
   },
   overviewCard: {
     background: '#fff',
-    borderRadius: '16px',
+    borderRadius: '24px',
     padding: '32px',
     boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
   },
@@ -334,7 +334,7 @@ const styles = {
     width: '80px',
     height: '80px',
     borderRadius: '50%',
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    background: '#3b6f7f',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -359,7 +359,7 @@ const styles = {
   },
   roleBadge: {
     display: 'inline-block',
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    background: '#3b6f7f',
     color: '#fff',
     padding: '4px 12px',
     borderRadius: '12px',
@@ -405,7 +405,7 @@ const styles = {
   },
   formCard: {
     background: '#fff',
-    borderRadius: '16px',
+    borderRadius: '24px',
     padding: '32px',
     boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
   },
@@ -422,7 +422,7 @@ const styles = {
   },
   formRow: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(2, 1fr)',
+    gridTemplateColumns: 'repeat(2, minmax(150px, 200px))',
     gap: '20px',
   },
   formGroup: {
@@ -465,7 +465,7 @@ const styles = {
   },
   saveButton: {
     flex: 1,
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    background: '#3b6f7f',
     color: '#fff',
     border: 'none',
     borderRadius: '8px',
@@ -474,7 +474,7 @@ const styles = {
     fontWeight: '600',
     cursor: 'pointer',
     transition: 'all 0.2s',
-    boxShadow: '0 4px 12px rgba(102, 126, 234, 0.4)',
+    boxShadow: '0 4px 12px rgba(59, 111, 127, 0.3)',
   },
   cancelButton: {
     flex: 1,
