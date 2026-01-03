@@ -18,8 +18,8 @@ router.post('/login', login);
 router.get('/me', protect, getMe);
 router.put('/me', protect, updateProfile);
 
-// Admin routes
-router.get('/users/:id', protect, authorize('admin'), getUserById);
-router.put('/users/:id', protect, authorize('admin'), updateUserById);
+// HR routes - full profile access
+router.get('/users/:id', protect, authorize('hr'), getUserById);
+router.put('/users/:id', protect, authorize('hr'), updateUserById);
 
 module.exports = router;

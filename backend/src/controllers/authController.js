@@ -6,22 +6,22 @@ const generateToken = require('../utils/generateToken');
 // @access  Public
 exports.register = async (req, res) => {
   try {
-    const { firstName, lastName, email, password, role, department, position } = req.body;
+    const { employeeId, name, email, password, role, department, position } = req.body;
 
     // Check if user exists
-    const userExists = await User.findOne({ email });
+    const userExists = await User.findOne({ $or: [{ email }, { employeeId }] });
 
     if (userExists) {
       return res.status(400).json({
         status: 'error',
-        message: 'User already exists',
+        message: 'User already exists with this email or employee ID',
       });
     }
 
     // Create user
     const user = await User.create({
-      firstName,
-      lastName,
+      employeeId,
+      name,
       email,
       password,
       role,
@@ -34,8 +34,8 @@ exports.register = async (req, res) => {
         status: 'success',
         data: {
           _id: user._id,
-          firstName: user.firstName,
-          lastName: user.lastName,
+          employeeId: user.employeeId,
+          name: user.name,
           email: user.email,
           role: user.role,
           department: user.department,
@@ -72,8 +72,8 @@ exports.login = async (req, res) => {
         status: 'success',
         data: {
           _id: user._id,
-          firstName: user.firstName,
-          lastName: user.lastName,
+          employeeId: user.employeeId,
+          name: user.name,
           email: user.email,
           role: user.role,
           department: user.department,
@@ -123,7 +123,7 @@ exports.updateProfile = async (req, res) => {
 
     if (user) {
       // Only allow employees to edit limited fields
-      const allowedFields = ['firstName', 'lastName', 'phoneNumber', 'dateOfBirth', 'password'];
+      const allowedFields = ['name', 'phoneNumber', 'dateOfBirth', 'password'];
 
       allowedFields.forEach((field) => {
         if (req.body[field] !== undefined) {
@@ -137,8 +137,8 @@ exports.updateProfile = async (req, res) => {
         status: 'success',
         data: {
           _id: updatedUser._id,
-          firstName: updatedUser.firstName,
-          lastName: updatedUser.lastName,
+          employeeId: updatedUser.employeeId,
+          name: updatedUser.name,
           email: updatedUser.email,
           role: updatedUser.role,
           department: updatedUser.department,
@@ -194,10 +194,10 @@ exports.updateUserById = async (req, res) => {
     const user = await User.findById(req.params.id).select('+password');
 
     if (user) {
-      // Admins can edit all profile fields
+      // HR can edit all profile fields
       const updatableFields = [
-        'firstName',
-        'lastName',
+        'employeeId',
+        'name',
         'email',
         'role',
         'department',
@@ -221,8 +221,8 @@ exports.updateUserById = async (req, res) => {
         status: 'success',
         data: {
           _id: updatedUser._id,
-          firstName: updatedUser.firstName,
-          lastName: updatedUser.lastName,
+          employeeId: updatedUser.employeeId,
+          name: updatedUser.name,
           email: updatedUser.email,
           role: updatedUser.role,
           department: updatedUser.department,

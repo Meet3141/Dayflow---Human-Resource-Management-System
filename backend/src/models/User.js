@@ -3,14 +3,15 @@ const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema(
   {
-    firstName: {
+    employeeId: {
       type: String,
-      required: [true, 'Please provide first name'],
+      required: [true, 'Please provide employee ID'],
+      unique: true,
       trim: true,
     },
-    lastName: {
+    name: {
       type: String,
-      required: [true, 'Please provide last name'],
+      required: [true, 'Please provide name'],
       trim: true,
     },
     email: {
@@ -32,7 +33,7 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ['employee', 'manager', 'hr', 'admin'],
+      enum: ['employee', 'hr'],
       default: 'employee',
     },
     department: {
