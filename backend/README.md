@@ -72,6 +72,95 @@ backend/
 
 ### Authentication Routes
 
+#### Attendance Routes
+
+- Check-in (Employee)
+```
+POST /api/attendance/checkin
+Authorization: Bearer <token>
+```
+
+- Check-out (Employee)
+```
+POST /api/attendance/checkout
+Authorization: Bearer <token>
+```
+
+- View my attendance (daily)
+```
+GET /api/attendance/me?date=YYYY-MM-DD
+Authorization: Bearer <token>
+```
+
+- View my attendance (range/weekly)
+```
+GET /api/attendance/me?start=YYYY-MM-DD&end=YYYY-MM-DD
+Authorization: Bearer <token>
+```
+
+- Admin/HR/Manager: Mark leave for a user
+```
+POST /api/attendance/:userId/leave
+Authorization: Bearer <admin-token>
+Content-Type: application/json
+
+{
+  "date": "2026-01-04",
+  "notes": "Sick leave"
+}
+```
+
+- Admin/HR/Manager: View user attendance (range)
+```
+GET /api/attendance/users/:userId?start=YYYY-MM-DD&end=YYYY-MM-DD
+Authorization: Bearer <admin-token>
+```
+
+#### Curl examples (smoke test)
+
+- Employee: check-in
+```
+curl -X POST http://localhost:5000/api/attendance/checkin \
+  -H "Authorization: Bearer <token>" \
+  -H "Content-Type: application/json"
+```
+
+- Employee: check-out
+```
+curl -X POST http://localhost:5000/api/attendance/checkout \
+  -H "Authorization: Bearer <token>" \
+  -H "Content-Type: application/json"
+```
+
+- Employee: view today
+```
+curl "http://localhost:5000/api/attendance/me?date=2026-01-03" \
+  -H "Authorization: Bearer <token>"
+```
+
+- Employee: view week range
+```
+curl "http://localhost:5000/api/attendance/me?start=2026-01-01&end=2026-01-07" \
+  -H "Authorization: Bearer <token>"
+```
+
+- Admin: mark leave for user
+```
+curl -X POST http://localhost:5000/api/attendance/<userId>/leave \
+  -H "Authorization: Bearer <admin-token>" \
+  -H "Content-Type: application/json" \
+  -d '{"date":"2026-01-04","notes":"Sick"}'
+```
+
+- Admin: view user attendance
+```
+curl "http://localhost:5000/api/attendance/users/<userId>?start=2026-01-01&end=2026-01-07" \
+  -H "Authorization: Bearer <admin-token>"
+```
+
+
+### Authentication Routes
+
 #### Register User
 ```
 POST /api/auth/register
