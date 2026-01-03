@@ -112,6 +112,17 @@ const AttendancePage = () => {
       <div className="attendance-card">
         <h3>Today's Attendance</h3>
         <div className="checkin-section">
+          <div className="info-message" style={{ 
+            background: '#e3f2fd', 
+            padding: '12px', 
+            borderRadius: '8px', 
+            marginBottom: '16px',
+            color: '#1976d2',
+            fontSize: '14px'
+          }}>
+            ℹ️ <strong>Note:</strong> Check-in happens automatically when you log in, and check-out happens when you log out.
+          </div>
+          
           <div className="time-display">
             <div className="time-item">
               <span className="label">Check-in Time</span>
@@ -140,15 +151,19 @@ const AttendancePage = () => {
               onClick={handleCheckIn}
               disabled={loading || !!todayRecord?.checkIn}
               className="btn btn-checkin"
+              style={{ opacity: 0.6 }}
+              title="Manual check-in (automatic on login)"
             >
-              {todayRecord?.checkIn ? '✓ Checked In' : 'Check In'}
+              {todayRecord?.checkIn ? '✓ Checked In' : 'Manual Check In'}
             </button>
             <button
               onClick={handleCheckOut}
               disabled={loading || !todayRecord?.checkIn || !!todayRecord?.checkOut}
               className="btn btn-checkout"
+              style={{ opacity: 0.6 }}
+              title="Manual check-out (automatic on logout)"
             >
-              {todayRecord?.checkOut ? '✓ Checked Out' : 'Check Out'}
+              {todayRecord?.checkOut ? '✓ Checked Out' : 'Manual Check Out'}
             </button>
           </div>
         </div>

@@ -4,7 +4,10 @@ import { useAuth } from '../contexts/AuthContext';
 
 const AdminDashboard = () => {
   const { user, logout } = useAuth();
-  const handleLogout = () => { logout(); window.location.href = '/login'; };
+  const handleLogout = async () => { 
+    await logout(); 
+    window.location.href = '/login'; 
+  };
 
   return (
     <div style={styles.container}>

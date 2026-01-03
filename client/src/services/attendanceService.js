@@ -23,4 +23,13 @@ export const attendanceAPI = {
     const res = await axios.get(`${API_URL}/attendance/me`, { params });
     return res.data.data;
   },
+
+  getAllAttendance: async ({ start, end, employeeId } = {}) => {
+    const params = {};
+    if (start) params.start = start;
+    if (end) params.end = end;
+    if (employeeId) params.employeeId = employeeId;
+    const res = await axios.get(`${API_URL}/attendance`, { params });
+    return res.data.data;
+  },
 };

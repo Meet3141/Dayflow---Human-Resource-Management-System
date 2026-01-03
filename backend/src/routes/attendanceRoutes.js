@@ -6,6 +6,7 @@ const {
   markLeave,
   getMyAttendance,
   getUserAttendance,
+  getAllAttendance,
 } = require('../controllers/attendanceController');
 const { protect, authorize } = require('../middleware/authMiddleware');
 
@@ -19,6 +20,6 @@ router.post('/:userId/leave', protect, authorize('admin', 'hr', 'manager'), mark
 router.get('/users/:userId', protect, authorize('admin', 'hr', 'manager'), getUserAttendance);
 
 // Admin/HR/Manager: get all attendance in a date range
-router.get('/', protect, authorize('admin', 'hr', 'manager'), require('../controllers/attendanceController').getAllAttendance);
+router.get('/', protect, authorize('admin', 'hr', 'manager'), getAllAttendance);
 
 module.exports = router;
