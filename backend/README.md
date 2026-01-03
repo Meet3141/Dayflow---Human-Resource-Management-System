@@ -105,16 +105,37 @@ GET /api/auth/me
 Authorization: Bearer <token>
 ```
 
-#### Update Profile (Protected)
+#### Update Profile (Protected — Employee)
 ```
 PUT /api/auth/me
 Authorization: Bearer <token>
 Content-Type: application/json
 
+# Allowed fields for employees: `firstName`, `lastName`, `phoneNumber`, `dateOfBirth`, `password`
+
 {
   "firstName": "John",
-  "lastName": "Doe",
   "phoneNumber": "+1234567890"
+}
+```
+
+#### Admin: Get / Update user by ID (Protected — Admin)
+```
+GET /api/auth/users/:id
+Authorization: Bearer <admin-token>
+```
+
+```
+PUT /api/auth/users/:id
+Authorization: Bearer <admin-token>
+Content-Type: application/json
+
+# Example (admin can update any profile field):
+{
+  "firstName": "Jane",
+  "role": "manager",
+  "department": "Sales",
+  "isActive": false
 }
 ```
 

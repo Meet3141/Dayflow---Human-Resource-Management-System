@@ -114,23 +114,22 @@ exports.getMe = async (req, res) => {
   }
 };
 
-// @desc    Update user profile
+// @desc    Update user profile (employee - limited fields)
 // @route   PUT /api/auth/me
 // @access  Private
 exports.updateProfile = async (req, res) => {
   try {
-    const user = await User.findById(req.user._id);
+    const user = await User.findById(req.user._id).select('+password');
 
     if (user) {
-      user.firstName = req.body.firstName || user.firstName;
-      user.lastName = req.body.lastName || user.lastName;
-      user.email = req.body.email || user.email;
-      user.phoneNumber = req.body.phoneNumber || user.phoneNumber;
-      user.dateOfBirth = req.body.dateOfBirth || user.dateOfBirth;
+      // Only allow employees to edit limited fields
+      const allowedFields = ['firstName', 'lastName', 'phoneNumber', 'dateOfBirth', 'password'];
 
-      if (req.body.password) {
-        user.password = req.body.password;
-      }
+      allowedFields.forEach((field) => {
+        if (req.body[field] !== undefined) {
+          user[field] = req.body[field];
+        }
+      });
 
       const updatedUser = await user.save();
 
@@ -145,6 +144,93 @@ exports.updateProfile = async (req, res) => {
           department: updatedUser.department,
           position: updatedUser.position,
           token: generateToken(updatedUser._id),
+        },
+      });
+    } else {
+      res.status(404).json({
+        status: 'error',
+        message: 'User not found',
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      status: 'error',
+      message: error.message,
+    });
+  }
+};
+
+// @desc    Get user by ID (admin)
+// @route   GET /api/auth/users/:id
+// @access  Private/Admin
+exports.getUserById = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id).select('-password');
+
+    if (user) {
+      res.json({
+        status: 'success',
+        data: user,
+      });
+    } else {
+      res.status(404).json({
+        status: 'error',
+        message: 'User not found',
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      status: 'error',
+      message: error.message,
+    });
+  }
+};
+
+// @desc    Update user by ID (admin - full profile)
+// @route   PUT /api/auth/users/:id
+// @access  Private/Admin
+exports.updateUserById = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id).select('+password');
+
+    if (user) {
+      // Admins can edit all profile fields
+      const updatableFields = [
+        'firstName',
+        'lastName',
+        'email',
+        'role',
+        'department',
+        'position',
+        'phoneNumber',
+        'dateOfBirth',
+        'hireDate',
+        'isActive',
+        'password',
+      ];
+
+      updatableFields.forEach((field) => {
+        if (req.body[field] !== undefined) {
+          user[field] = req.body[field];
+        }
+      });
+
+      const updatedUser = await user.save();
+
+      res.json({
+        status: 'success',
+        data: {
+          _id: updatedUser._id,
+          firstName: updatedUser.firstName,
+          lastName: updatedUser.lastName,
+          email: updatedUser.email,
+          role: updatedUser.role,
+          department: updatedUser.department,
+          position: updatedUser.position,
+          phoneNumber: updatedUser.phoneNumber,
+          dateOfBirth: updatedUser.dateOfBirth,
+          hireDate: updatedUser.hireDate,
+          isActive: updatedUser.isActive,
         },
       });
     } else {
