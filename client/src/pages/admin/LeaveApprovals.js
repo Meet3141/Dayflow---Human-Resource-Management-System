@@ -15,9 +15,24 @@ const LeaveApprovals = () => {
 
   useEffect(() => { load(); }, []);
 
+  const [reviewingId, setReviewingId] = React.useState(null);
+  const [reviewComments, setReviewComments] = React.useState('');
+
+  const handleStartReview = (id) => {
+    setReviewingId(id);
+    setReviewComments('');
+  };
+
+  const handleCancelReview = () => {
+    setReviewingId(null);
+    setReviewComments('');
+  };
+
   const handleReview = async (id, status) => {
     try {
-      await leaveAPI.reviewLeave(id, { status });
+      await leaveAPI.reviewLeave(id, { status, comments: reviewComments });
+      setReviewingId(null);
+      setReviewComments('');
       load();
     } catch (err) {
       alert('Failed');
@@ -41,10 +56,25 @@ const LeaveApprovals = () => {
               <td style={{ padding: 8 }}>{l.status}</td>
               <td style={{ padding: 8 }}>
                 {l.status === 'Pending' && (
-                  <>
-                    <button onClick={() => handleReview(l._id, 'Approved')}>Approve</button>
-                    <button onClick={() => handleReview(l._id, 'Rejected')}>Reject</button>
-                  </>
+                  reviewingId === l._id ? (
+                    <div style={{ display: 'grid', gap: 8 }}>
+                      <textarea placeholder="Comments (optional)" value={reviewComments} onChange={(e) => setReviewComments(e.target.value)} />
+                      <div>
+                        <button onClick={() => handleReview(l._id, 'Approved')}>Approve</button>
+                        <button onClick={() => handleReview(l._id, 'Rejected')} style={{ marginLeft: 8 }}>Reject</button>
+                        <button onClick={handleCancelReview} style={{ marginLeft: 8 }}>Cancel</button>
+                      </div>
+                    </div>
+                  ) : (
+                    <button onClick={() => handleStartReview(l._id)}>Review</button>
+                  )
+                )}
+
+                {l.status !== 'Pending' && l.reviewedBy && (
+                  <div>
+                    <div><strong>{l.status}</strong> by {l.reviewedBy.name}</div>
+                    {l.comments && <div><em>{l.comments}</em></div>}
+                  </div>
                 )}
               </td>
             </tr>

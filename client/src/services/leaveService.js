@@ -19,4 +19,12 @@ export const leaveAPI = {
     const res = await axios.put(`${API_URL}/leaves/${leaveId}/review`, payload);
     return res.data.data;
   },
+  cancelLeave: async (leaveId) => {
+    const res = await axios.delete(`${API_URL}/leaves/${leaveId}`);
+    return res.data;
+  },
+  updateLeave: async (leaveId, payload) => {
+    const res = await axios.put(`${API_URL}/leaves/${leaveId}`, payload);
+    return res.data.data;
+  },
 };
