@@ -29,11 +29,19 @@ const AppRoutes = () => {
     );
   }
 
+  const defaultDashboard = user
+    ? user.role === 'admin' || user.role === 'manager'
+      ? '/dashboard/admin'
+      : user.role === 'hr'
+      ? '/dashboard/hr'
+      : '/dashboard/employee'
+    : '/login';
+
   return (
     <Routes>
       {/* Public Routes */}
-      <Route path="/login" element={user ? <Navigate to="/dashboard/employee" /> : <LoginPage />} />
-      <Route path="/register" element={user ? <Navigate to="/dashboard/employee" /> : <RegisterPage />} />
+      <Route path="/login" element={user ? <Navigate to={defaultDashboard} /> : <LoginPage />} />
+      <Route path="/register" element={user ? <Navigate to={defaultDashboard} /> : <RegisterPage />} />
 
       {/* Protected Routes */}
       <Route

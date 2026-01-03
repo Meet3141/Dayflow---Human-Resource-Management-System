@@ -34,7 +34,9 @@ const LoginPage = () => {
       const userData = await login(formData.email, formData.password);
 
       // Redirect based on role
-      if (userData.role === 'hr') {
+      if (userData.role === 'admin' || userData.role === 'manager') {
+        navigate('/dashboard/admin');
+      } else if (userData.role === 'hr') {
         navigate('/dashboard/hr');
       } else {
         navigate('/dashboard/employee');
@@ -114,6 +116,7 @@ const LoginPage = () => {
           <p className="demo-title">Demo Credentials:</p>
           <p><strong>Employee:</strong> emp001@example.com / password123</p>
           <p><strong>HR:</strong> hr001@example.com / password123</p>
+          <p><strong>Admin:</strong> admin@dayflow.com / Admin@123</p>
         </div>
       </div>
     </div>
